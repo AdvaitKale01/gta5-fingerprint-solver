@@ -6,8 +6,7 @@ This tool helps you solve the fingerprint hacking minigame in GTA V by automatic
 
 1. **Clone the repository:**
    ```bash
-   git clone <repo-url>
-   cd GTAV-FingerprintSolver
+   git clone https://github.com/AdvaitKale01/gta5-fingerprint-solver.git
    ```
 2. **Install dependencies:**
    ```bash
