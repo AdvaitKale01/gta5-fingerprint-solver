@@ -32,6 +32,7 @@ If you want to reconfigure the fingerprint detection regions:
 ## Notes
 - Make sure GTA V is running and the fingerprint minigame is visible on your screen when you press `F10`.
 - The tool works best with the default game resolution and UI layout.
+- Make sure to run your game on windowed borderless to avoid any runtime errors.
 
 ---
 
