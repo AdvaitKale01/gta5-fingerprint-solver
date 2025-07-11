@@ -8,6 +8,7 @@ import json
 from PIL import Image, ImageTk
 import tkinter as tk
 import screeninfo
+import ctypes
 
 # --- CONFIGURABLE PARAMETERS ---
 # Each cutout region has unique coordinates (x1, y1, x2, y2)
@@ -338,7 +339,7 @@ def show_result_window(img, cutout_regions, correct_indices):
     for idx in correct_indices:
         cx1, cy1, cx2, cy2 = cutout_regions[idx]
         cv2.rectangle(img_disp, (cx1, cy1), (cx2, cy2), (0,255,0), 4)
-    # Show in fullscreen on second monitor
+    # Show in fullscreen on second monitor, always on top, but do not grab focus or close on key/mouse
     monitors = screeninfo.get_monitors()
     if len(monitors) > 1:
         m = monitors[1]
@@ -350,8 +351,15 @@ def show_result_window(img, cutout_regions, correct_indices):
     cv2.resizeWindow(window_name, m.width, m.height)
     cv2.imshow(window_name, img_disp)
     cv2.setWindowProperty(window_name, cv2.WND_PROP_FULLSCREEN, cv2.WINDOW_FULLSCREEN)
-    cv2.waitKey(0)
-    cv2.destroyWindow(window_name)
+    # Always on top (Windows only)
+    try:
+        hwnd = ctypes.windll.user32.FindWindowW(None, window_name)
+        if hwnd:
+            ctypes.windll.user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 0x0001 | 0x0002)
+    except Exception:
+        pass
+    # Do not wait for key, just return (window stays open until next detection or script exit)
+    cv2.waitKey(1)
 
 
 # --- Main logic ---
