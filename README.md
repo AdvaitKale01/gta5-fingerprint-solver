@@ -2,6 +2,9 @@
 
 This tool helps you solve the fingerprint hacking minigame in GTA V by automatically detecting and matching fingerprint segments.
 
+## Current Accuracy
+### 84%
+
 ## Setup
 
 1. **Clone the repository:**
